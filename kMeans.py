@@ -1,4 +1,4 @@
- import numpy as N
+import numpy as N
 import math
 
 k=2
