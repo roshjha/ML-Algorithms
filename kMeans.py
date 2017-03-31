@@ -51,17 +51,21 @@ def is_SameCluster(Cluster1, Cluster2):
     else:
         return False
     
+def Print_Clusters():
+    for i in range (0, len(DataSet)): 
+        print DataSet[i], "---->", int(Cluster[i])
+        
 def Main():
-    print DataSet
+    #print DataSet
     cx1, cy1, cx2, cy2=Init_Centroid()
     #print cx1, cy1, cx2, cy2
     
     Cluster=N.zeros(len(DataSet))
     Init_Clusters(cx1, cy1, cx2, cy2)
-    print Cluster
+    #print Cluster
     
     Cluster=Assign_Clusters(cx1, cy1, cx2, cy2)
-    print Cluster
+    #print Cluster
     
     Cx1, Cy1 = find_Meanof(1)
     Cx2, Cy2 = find_Meanof(2)
@@ -76,7 +80,8 @@ def Main():
         Cx1, Cy1 = find_Meanof(1)
         Cx2, Cy2 = find_Meanof(2)
         tempCluster=Cluster
-    print Cluster
+    #print Cluster
+    Print_Clusters()
     
 def Read_Input():
     
