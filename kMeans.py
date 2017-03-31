@@ -1,11 +1,7 @@
 import numpy as N
 import math
+import pandas as P
 
-k=2
-Max_Iterations=100
-DataSet = [[1.0, 1.0], [1.5, 2.0], [3.0, 4.0], [5.0, 7.0], [3.5, 5.0], [4.5, 5.0], [3.5, 4.5]]
-DataSet=N.array(DataSet)
-Cluster=N.zeros(len(DataSet))
 
 def Euclidean_distance(x1, y1, x2, y2):
     return math.sqrt(math.pow((x2-x1), 2) + math.pow((y2-y1), 2))
@@ -54,10 +50,11 @@ def is_SameCluster(Cluster1, Cluster2):
         return True
     else:
         return False
-def main():
     
+def Main():
+    print DataSet
     cx1, cy1, cx2, cy2=Init_Centroid()
-    print cx1, cy1, cx2, cy2
+    #print cx1, cy1, cx2, cy2
     
     Cluster=N.zeros(len(DataSet))
     Init_Clusters(cx1, cy1, cx2, cy2)
@@ -68,18 +65,34 @@ def main():
     
     Cx1, Cy1 = find_Meanof(1)
     Cx2, Cy2 = find_Meanof(2)
-    print Cx1, Cy1
-    print Cx2, Cy2
+    #print Cx1, Cy1
+    #print Cx2, Cy2
     
     tempCluster=N.zeros(len(DataSet))
     for i in range(1, Max_Iterations):
         Cluster=Assign_Clusters(Cx1, Cy1, Cx2, Cy2)
         if is_SameCluster(tempCluster, Cluster):
-            print i, "hello"
             break
         Cx1, Cy1 = find_Meanof(1)
         Cx2, Cy2 = find_Meanof(2)
         tempCluster=Cluster
     print Cluster
     
-main()
+def Read_Input():
+    
+    df=P.read_table('inputKmeans.txt', delim_whitespace=True, header=None)
+    df=df[[1, 2]] #Skip first Column
+    DataSet=N.zeros(df.shape)
+    
+    for i, row in df.iterrows():
+        DataSet[i]=[row[1], row[2]]
+        #print row[1], row[2]
+    return DataSet
+
+DataSet=Read_Input()
+Cluster=N.zeros(len(DataSet))
+
+k=2
+Max_Iterations=100
+
+Main()
